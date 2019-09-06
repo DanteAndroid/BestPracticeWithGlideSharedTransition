@@ -1,10 +1,10 @@
 package pl.droidsonrioids.glidesharedtransition
 
-import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.recyclerview.widget.RecyclerView
 
 class ImageAdapter(private val images: List<String>, private val onClick: (String, View) -> Unit) : RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
 
@@ -18,6 +18,7 @@ class ImageAdapter(private val images: List<String>, private val onClick: (Strin
     override fun onBindViewHolder(holder: ImageViewHolder, position: Int) = holder.bind(images[position])
 
     inner class ImageViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
         fun bind(url: String) {
             (itemView as ImageView).apply {
                 load(url)

@@ -1,8 +1,11 @@
 package pl.droidsonrioids.glidesharedtransition
 
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.transition.*
+import android.transition.ChangeBounds
+import android.transition.ChangeImageTransform
+import android.transition.Fade
+import android.transition.TransitionSet
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.transition.doOnEnd
 import kotlinx.android.synthetic.main.activity_detail.*
 
