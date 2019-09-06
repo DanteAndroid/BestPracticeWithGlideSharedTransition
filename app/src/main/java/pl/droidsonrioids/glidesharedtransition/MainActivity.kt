@@ -8,7 +8,7 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 
-const val IMAGE_URL_KEY = "url"
+const val IMAGE_URL_KEY = "thumbUrl"
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,15 +21,19 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun goToDetails(url: String, imageView: View) {
+    fun goToDetails(index: Int, imageView: View) {
         val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, imageView, imageView.transitionName).toBundle()
         Intent(this, DetailActivity::class.java)
-                .putExtra(IMAGE_URL_KEY, url)
+                .putExtra(ARG_POSITION, index)
+                .putParcelableArrayListExtra(ARG_DATA, photos())
                 .let {
                     startActivity(it, options)
                 }
     }
 
-    private fun photos() = (169..216)
-            .map { "https://picsum.photos/1000/700?image=$it" }
+    private fun photos(): List<Image> = (169..216)
+            .map {
+                val url = "https://picsum.photos/1000/700?image=$it"
+                Image(url, url)
+            }
 }

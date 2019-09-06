@@ -1,38 +1,57 @@
 package pl.droidsonrioids.glidesharedtransition
 
 import android.os.Bundle
-import android.transition.ChangeBounds
-import android.transition.ChangeImageTransform
-import android.transition.Fade
-import android.transition.TransitionSet
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.transition.doOnEnd
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.viewpager.widget.ViewPager
 import kotlinx.android.synthetic.main.activity_detail.*
+
+const val ARG_POSITION = "transPosition"
+const val ARG_DATA = "data"
 
 class DetailActivity : AppCompatActivity() {
 
-    private val url by lazy {
-        intent.getStringExtra(IMAGE_URL_KEY)
-    }
+    private lateinit var adapter: DetailPagerAdapter
+
+    private val transPosition: Int by lazy { intent.getIntExtra(ARG_POSITION, 0) }
+    private val images: List<Image> by lazy { intent.getParcelableArrayListExtra<Image>(ARG_DATA) }
+    private var currentPosition: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
+        currentPosition = transPosition
         supportPostponeEnterTransition()
-        detailImage.transitionName = url
-        detailImage.load(url, true) {
-            supportStartPostponedEnterTransition()
+        adapter = DetailPagerAdapter(images, fragmentManager = supportFragmentManager)
+        initViewPager(adapter)
+
+    }
+
+    private fun initViewPager(adapter: DetailPagerAdapter) {
+        pager.adapter = adapter
+        pager.currentItem = transPosition
+        pager.addOnPageChangeListener(object : ViewPager.SimpleOnPageChangeListener() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                currentPosition = position
+            }
+        })
+    }
+
+
+    inner class DetailPagerAdapter(
+            private val images: List<Image>,
+            fragmentManager: FragmentManager
+    ) : FragmentStatePagerAdapter(fragmentManager) {
+
+        override fun getItem(position: Int): Fragment {
+            return PictureDetailFragment.newInstance(
+                    images[position], transPosition == position
+            )
         }
-        window.sharedElementEnterTransition = TransitionSet()
-                .addTransition(ChangeImageTransform())
-                .addTransition(ChangeBounds())
-                .apply {
-                    doOnEnd { detailImage.load(url) }
-                }
-        window.enterTransition = Fade().apply {
-            excludeTarget(android.R.id.statusBarBackground, true)
-            excludeTarget(android.R.id.navigationBarBackground, true)
-            excludeTarget(R.id.action_bar_container, true)
-        }
+
+        override fun getCount(): Int = images.size
     }
 }
