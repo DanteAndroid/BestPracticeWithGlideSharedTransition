@@ -1,7 +1,10 @@
 ## Best practice of SharedTransition & SmoothLoading with Glide
 
 For better UE on picture loading while I'm in develop for a new version's Beauty app, I paid a great deal of effort.
-So just create this repo, wishing it could help you a little bit.
+So I created this repo, wishing it could help you a little bit.
+
+KeyWord:
+**Viewpager+Fragment, Glide, SharedElement, StaggerGridLayout, thumbnail**
 
 Inspired by [GlideSharedTransition](https://github.com/DroidsOnRoids/GlideSharedTransition)
 
