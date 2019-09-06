@@ -1,4 +1,4 @@
-package pl.droidsonrioids.glidesharedtransition
+package dante.android.glidesharedtransition
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -40,6 +40,19 @@ class DetailActivity : AppCompatActivity() {
         })
     }
 
+    override fun onBackPressed() {
+        supportFinishAfterTransition()
+    }
+
+
+    override fun supportFinishAfterTransition() {
+        if (transPosition == currentPosition) {
+            super.supportFinishAfterTransition()
+        } else {
+            finish()
+        }
+    }
+
 
     inner class DetailPagerAdapter(
             private val images: List<Image>,
@@ -47,7 +60,7 @@ class DetailActivity : AppCompatActivity() {
     ) : FragmentStatePagerAdapter(fragmentManager) {
 
         override fun getItem(position: Int): Fragment {
-            return PictureDetailFragment.newInstance(
+            return DetailFragment.newInstance(
                     images[position], transPosition == position
             )
         }

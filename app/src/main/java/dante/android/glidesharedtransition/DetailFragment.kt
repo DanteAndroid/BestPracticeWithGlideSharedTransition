@@ -1,4 +1,4 @@
-package pl.droidsonrioids.glidesharedtransition
+package dante.android.glidesharedtransition
 
 import android.os.Bundle
 import android.transition.ChangeBounds
@@ -11,15 +11,12 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.activity_detail.*
+import kotlinx.android.synthetic.main.fragment_picture_detail.*
 
-class PictureDetailFragment : Fragment() {
+class DetailFragment : Fragment() {
 
     private val image: Image by lazy {
-        arguments!!.getSerializable(ARG_IMAGE) as Image
-    }
-    private val showTransition: Boolean by lazy {
-        arguments!!.getBoolean(ARG_TRANSITION, false)
+        arguments!!.getParcelable<Image>(ARG_IMAGE) as Image
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -56,10 +53,10 @@ class PictureDetailFragment : Fragment() {
         private const val ARG_IMAGE = "image"
         private const val ARG_TRANSITION = "position"
 
-        fun newInstance(image: Image, showTransition: Boolean): PictureDetailFragment {
-            return PictureDetailFragment().apply {
+        fun newInstance(image: Image, showTransition: Boolean): DetailFragment {
+            return DetailFragment().apply {
                 arguments = Bundle().apply {
-                    putSerializable(ARG_IMAGE, image)
+                    putParcelable(ARG_IMAGE, image)
                     putBoolean(ARG_TRANSITION, showTransition)
                 }
             }

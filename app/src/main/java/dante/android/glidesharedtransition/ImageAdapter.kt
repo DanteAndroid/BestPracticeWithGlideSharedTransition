@@ -1,4 +1,4 @@
-package pl.droidsonrioids.glidesharedtransition
+package dante.android.glidesharedtransition
 
 import android.view.LayoutInflater
 import android.view.View

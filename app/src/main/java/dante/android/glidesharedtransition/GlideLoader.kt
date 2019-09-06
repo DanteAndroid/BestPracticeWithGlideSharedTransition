@@ -1,4 +1,4 @@
-package pl.droidsonrioids.glidesharedtransition
+package dante.android.glidesharedtransition
 
 import android.graphics.Bitmap
 import android.widget.ImageView
@@ -27,7 +27,7 @@ fun ImageView.load(url: String, thumbnail: RequestBuilder<Bitmap>? = null) {
             .into(this)
 }
 
-fun <T> PictureDetailFragment.getDelayedTransitionListener(): RequestListener<T> {
+fun <T> DetailFragment.getDelayedTransitionListener(): RequestListener<T> {
     return object : RequestListener<T> {
         override fun onLoadFailed(
                 e: GlideException?,
