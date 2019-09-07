@@ -6,6 +6,7 @@
     tools:context=".DetailFragment"
     tools:ignore="ContentDescription">
 
+    <!-- use touchview to support double tap to zoom but seems to have some issues -->
     <com.ortiz.touchview.TouchImageView
         android:id="@+id/detailImage"
         android:layout_width="match_parent"
