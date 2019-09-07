@@ -6,7 +6,7 @@
     tools:context=".DetailFragment"
     tools:ignore="ContentDescription">
 
-    <ImageView
+    <com.ortiz.touchview.TouchImageView
         android:id="@+id/detailImage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
