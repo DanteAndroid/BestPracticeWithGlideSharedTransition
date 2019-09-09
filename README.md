@@ -13,7 +13,7 @@ So I created this repo, wishing it could help you a little bit.
 
 我在开发五次元妹子新版的时候，为了在图片加载上进行体验优化，付诸了很多努力。
 因此特别把这部分提取出来，希望对你能有所帮助。
-我自认认为是市面上做的最好的图片加载（可能效果还可以更好，但是肯定没我这样实现的简单）
+自认认为是市面上做的最好的图片加载（可能还有更好的效果，但是肯定没我这样实现的简单）
 
 ### 技术点：
 **Viewpager+Fragment实现画廊，Glide监听事件，SharedElement动画，StaggerGridLayout实现瀑布流，缩略图到大图的平滑加载**
