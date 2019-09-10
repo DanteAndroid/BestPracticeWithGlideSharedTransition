@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 class ImageAdapter(private val images: List<Image>, private val onClick: (Int, View) -> Unit) : RecyclerView.Adapter<ImageAdapter.ImageViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ImageViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.image, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.image_item, parent, false)
         return ImageViewHolder(view)
     }
 

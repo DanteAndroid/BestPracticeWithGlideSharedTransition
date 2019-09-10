@@ -9,9 +9,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_picture_detail.*
+import kotlin.concurrent.thread
 
 class DetailFragment : Fragment() {
 
@@ -34,9 +37,24 @@ class DetailFragment : Fragment() {
             excludeTarget(android.R.id.navigationBarBackground, true)
             excludeTarget(R.id.action_bar_container, true)
         }
+        detailImage.setOnLongClickListener {
+            saveFile(image.originalUrl)
+            return@setOnLongClickListener true
+        }
+        detailImage.postDelayed({
+            progress.isVisible = false
+        }, 1000)
+    }
+
+    private fun saveFile(url: String) {
+        thread {
+            val file = Glide.with(this).download(url).submit().get()
+            Toast.makeText(context, "File saved into ${file.path}", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun load(imageView: ImageView, image: Image) {
+        progress.isVisible = true
         imageView.transitionName = image.thumbUrl
         val thumbnail = Glide.with(this)
                 .asBitmap()

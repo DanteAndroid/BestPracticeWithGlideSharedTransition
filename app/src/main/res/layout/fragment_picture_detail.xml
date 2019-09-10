@@ -6,11 +6,18 @@
     tools:context=".DetailFragment"
     tools:ignore="ContentDescription">
 
-    <!-- use touchview to support double tap to zoom but seems to have some issues -->
     <com.ortiz.touchview.TouchImageView
         android:id="@+id/detailImage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop" />
+
+    <ProgressBar
+        android:id="@+id/progress"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone" />
 
 </FrameLayout>
