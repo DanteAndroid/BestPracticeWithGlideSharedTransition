@@ -10,7 +10,7 @@ import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.Target
 
-fun ImageView.load(url: String, thumbnail: RequestBuilder<Bitmap>? = null) {
+fun ImageView.load(url: String, thumbnail: RequestBuilder<Bitmap>? = null, onFinished: () -> Unit = {}) {
     val requestOptions = RequestOptions.placeholderOf(R.drawable.placeholder)
             .dontTransform()
             .apply {
@@ -24,6 +24,28 @@ fun ImageView.load(url: String, thumbnail: RequestBuilder<Bitmap>? = null) {
             .load(url)
             .thumbnail(thumbnail)
             .apply(requestOptions)
+            .listener(object : RequestListener<Bitmap> {
+                override fun onLoadFailed(
+                        e: GlideException?,
+                        model: Any?,
+                        target: Target<Bitmap>?,
+                        isFirstResource: Boolean
+                ): Boolean {
+                    onFinished()
+                    return false
+                }
+
+                override fun onResourceReady(
+                        resource: Bitmap?,
+                        model: Any?,
+                        target: Target<Bitmap>?,
+                        dataSource: DataSource?,
+                        isFirstResource: Boolean
+                ): Boolean {
+                    onFinished()
+                    return false
+                }
+            })
             .into(this)
 }
 

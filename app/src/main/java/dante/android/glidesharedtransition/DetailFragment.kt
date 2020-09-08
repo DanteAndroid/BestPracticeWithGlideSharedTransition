@@ -10,7 +10,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.fragment_picture_detail.*
@@ -41,9 +40,6 @@ class DetailFragment : Fragment() {
             saveFile(image.originalUrl)
             return@setOnLongClickListener true
         }
-        detailImage.postDelayed({
-            progress.isVisible = false
-        }, 1000)
     }
 
     private fun saveFile(url: String) {
@@ -54,7 +50,7 @@ class DetailFragment : Fragment() {
     }
 
     private fun load(imageView: ImageView, image: Image) {
-        progress.isVisible = true
+        progress.show()
         imageView.transitionName = image.thumbUrl
         val thumbnail = Glide.with(this)
                 .asBitmap()
@@ -62,9 +58,11 @@ class DetailFragment : Fragment() {
                 .load(image.thumbUrl)
                 .listener(getDelayedTransitionListener())
         imageView.load(
-                if (image.originalUrl.isEmpty()) image.thumbUrl
-                else image.originalUrl,
-                thumbnail = thumbnail)
+                if (image.originalUrl.isEmpty()) image.thumbUrl else image.originalUrl,
+                thumbnail = thumbnail,
+                onFinished = {
+                    progress?.hide()
+                })
     }
 
     companion object {
