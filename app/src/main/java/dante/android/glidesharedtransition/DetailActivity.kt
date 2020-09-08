@@ -16,7 +16,7 @@ class DetailActivity : AppCompatActivity() {
     private lateinit var adapter: DetailPagerAdapter
 
     private val transPosition: Int by lazy { intent.getIntExtra(ARG_POSITION, 0) }
-    private val images: List<Image> by lazy { intent.getParcelableArrayListExtra<Image>(ARG_DATA) }
+    private val images: List<Image> by lazy { intent.getParcelableArrayListExtra<Image>(ARG_DATA)!! }
     private var currentPosition: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -57,7 +57,7 @@ class DetailActivity : AppCompatActivity() {
     inner class DetailPagerAdapter(
             private val images: List<Image>,
             fragmentManager: FragmentManager
-    ) : FragmentStatePagerAdapter(fragmentManager) {
+    ) : FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
         override fun getItem(position: Int): Fragment {
             return DetailFragment.newInstance(
